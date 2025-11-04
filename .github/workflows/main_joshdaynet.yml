@@ -40,10 +40,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     env:
-      # Map your ACTUAL secret names to env vars (use the exact keys from your screenshot)
       AZ_CLIENT_ID: ${{ secrets.AZUREAPPSERVICE_CLIENTID_575CA3F4531D48E8B6E0938E50870E42 }}
       AZ_TENANT_ID: ${{ secrets.AZUREAPPSERVICE_TENANTID_CB82C907CD034D498CBC10E2325D61C9 }}
-      AZ_SUB_ID:   ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_5C64C33BFFB144C794D801EF44F70067 }}
+      AZ_SUB_ID:   "4ddf77ed-57ff-45a6-be21-7e8828ef0a8c"
     steps:
       - name: Download build artifact
         uses: actions/download-artifact@v4
@@ -51,7 +50,6 @@ jobs:
           name: dist
           path: dist
 
-      # Simple validation (now checks env vars, not secrets)
       - name: Validate required secrets
         run: |
           for v in AZ_CLIENT_ID AZ_TENANT_ID AZ_SUB_ID; do
