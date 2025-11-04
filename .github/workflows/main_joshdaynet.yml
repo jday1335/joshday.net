@@ -1,4 +1,41 @@
-﻿  deploy:
+﻿name: Deploy JoshDay.Net (React/Vite) to Azure App Service
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  AZURE_WEBAPP_NAME: joshdaynet
+  NODE_VERSION: "20.x"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - name: Install deps
+        run: npm ci || npm install
+
+      - name: Build (Vite → dist)
+        run: npm run build
+
+      - name: Upload build artifact (dist)
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
+
+   deploy:
     runs-on: ubuntu-latest
     needs: build
     env:
@@ -12,7 +49,7 @@
           name: dist
           path: dist
 
-      # Quick guard to fail early if any secret is missing
+      # Guard: fail early if any secret is missing
       - name: Validate required secrets
         run: |
           for v in AZ_CLIENT_ID AZ_TENANT_ID AZ_SUB_ID; do
@@ -35,5 +72,6 @@
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
-          app-name: joshdaynet
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
           package: site.zip
+
