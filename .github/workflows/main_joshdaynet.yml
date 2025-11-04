@@ -48,9 +48,9 @@ jobs:
       - name: Azure Login (OIDC)
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_575CA3F4531D48E8B6E0938E50870E42 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_CB82C907CD034D498CBC10E2325D61C9 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_5C64C33BFFB144C794D801EF44F70067 }}
 
       - name: Zip dist
         run: |
