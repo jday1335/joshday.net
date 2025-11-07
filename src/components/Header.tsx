@@ -1,26 +1,53 @@
-import { makeStyles, tokens } from "@fluentui/react-components";
+﻿import { makeStyles } from "@fluentui/react-components";
+import { useNavigate } from "react-router-dom";
+import logo from "../assets/logo.png";
 
 const useStyles = makeStyles({
-    bar: {
-        maxWidth: "1200px",
-        margin: "0 auto",
-        padding: "24px 32px",
+    brandGroup: {
         display: "flex",
         alignItems: "center",
-        justifyContent: "space-between",
+        gap: "16px",
+        cursor: "pointer",
+        userSelect: "none",
+        textDecoration: "none",
+        ":hover": { opacity: 0.92 }
     },
-    logo: { fontSize: "22px", fontWeight: "700", letterSpacing: "0.5px" },
-    tag: { color: tokens.colorNeutralForeground3 },
+    logoImgWrap: {
+        height: "50px", // ~2x previous 44px
+        "@media (max-width: 640px)": {
+            height: "64px" // scale down on small screens
+        }
+    },
+    logoImg: {
+        height: "100%",
+        width: "auto",
+        display: "block",
+        objectFit: "contain",
+        imageRendering: "auto"
+    },
+    brandText: {
+        display: "none"
+    }
 });
-
-
 
 export default function Header() {
     const s = useStyles();
+    const navigate = useNavigate();
     return (
-        <div className={s.bar}>
-            <div className={s.logo}>JoshDay.Net</div>
-            <div className={s.tag}>Power Platform &#183; Azure &#183; AI</div>
+        <div
+            className={s.brandGroup}
+            onClick={() => navigate("/")}
+            aria-label="joshday.net home"
+            title="joshday.net"
+        >
+            <div className={s.logoImgWrap}>
+                <img
+                    src={logo}
+                    alt="joshday.net logo"
+                    className={s.logoImg}
+                    decoding="async"
+                />
+            </div>
         </div>
     );
 }
