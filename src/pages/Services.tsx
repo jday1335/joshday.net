@@ -15,7 +15,9 @@ const useStyles = makeStyles({
         margin: "0 auto",
         display: "grid",
         gap: "42px",
-        padding: "32px 4px 48px"
+        padding: "32px 4px 48px",
+        position: "relative",
+        overflow: "hidden" // prevent absolute halo from causing horizontal scroll
     },
     header: {
         display: "grid",
@@ -31,8 +33,8 @@ const useStyles = makeStyles({
         position: "absolute",
         top: "-160px",
         left: "50%",
-        width: "620px",
-        height: "620px",
+        width: "min(620px, 100vw)", // clamp on small screens
+        height: "min(620px, 100vw)",
         transform: "translateX(-50%)",
         background: `radial-gradient(circle at 50% 50%, ${tokens.colorBrandBackground}25, transparent 70%)`,
         filter: "blur(40px)",
