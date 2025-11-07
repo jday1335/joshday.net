@@ -12,13 +12,14 @@ permissions:
 env:
   AZURE_WEBAPP_NAME: joshdaynet
   NODE_VERSION: "20.x"
+  VITE_BOOKING_URL: https://outlook.office.com/book/JoshDaynetBookings@joshday.net/
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
+        
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
